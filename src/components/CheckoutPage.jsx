@@ -1,7 +1,16 @@
 import React,{useEffect,useState} from 'react'
 import {useParams,Link} from 'react-router-dom'
 import '../App.css';
+import { useDispatch} from 'react-redux'
+import { actionCreator } from './redux';
+
 const CheckoutPage = () => {
+let dispatch=useDispatch();
+let initialValue={
+    name:"",mobile:"",address:""
+}
+
+const [user,setUser]=useState(initialValue)
     const {id}=useParams();
    const [checkoutData,setCheckoutData]=useState({})
     async function fetchSingleProduct(){
@@ -12,6 +21,9 @@ const CheckoutPage = () => {
     useEffect(()=>{
         fetchSingleProduct();
     },[])
+    //console.log('check',user)
+    dispatch(actionCreator(user))
+
   return (
     <>
         <h1>Checkout Page</h1>
@@ -27,19 +39,25 @@ const CheckoutPage = () => {
                 <label>Name</label>
             </div>
             <div className='input'>
-                <input type="text" placeholder="Enter Name"/>
+            <input type="text" placeholder='Enter Name'
+            onChange={(e)=>setUser({...user,name:e.target.value})}
+            />
             </div>
             <div className='mobile'>
                 <label>Mobile</label>
             </div>
             <div className='input'>
-                <input type="number" placeholder="Enter Number"/>
+            <input type="text" placeholder='enter mobile'
+            onChange={(e)=>setUser({...user,mobile:e.target.value})}
+            />
             </div>
             <div className='address'>
                 <label>Address</label>
             </div>
             <div className='textarea'>
-                <textarea type="text" placeholder="Enter Address"/>
+            <textarea type="text" placeholder='address'
+            onChange={(e)=>setUser({...user,address:e.target.value})}
+            />
             </div>
             <div className='checkoutBtn'>
             <Link to={`orderpreview/${checkoutData.id}`}>

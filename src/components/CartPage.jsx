@@ -15,7 +15,6 @@ const CartPage=()=>{
     const navigate=useNavigate()
     const [count,setCount]=useState(0)
     const [LSItems,setLSItems]=useState(getDataFromLS())
-    console.log(LSItems)
     const deleteCartItem=(id)=>{
         let newLSItems=LSItems.filter((items,index)=>{
             return id===index
@@ -23,11 +22,13 @@ const CartPage=()=>{
         setLSItems(newLSItems)
     }
     const increment=(price)=>{
-        setCount(prevPrice=>prevPrice+price)
+        let money=parseInt(price);
+        setCount(prevPrice=>prevPrice+money)
     }
     const decrement=(price)=>{
-        if(price!==0)
-        setCount(prevPrice=>prevPrice-price)
+        let money=parseInt(price)
+        if(money>1)
+        setCount(prevPrice=>prevPrice-money)
     }
     return(
         <>
@@ -41,14 +42,14 @@ const CartPage=()=>{
                             <img src={items.image} alt={items.title}/>
                             <div className="quantity">
                                 
-                                <p onClick={()=>decrement(items.price)}>-</p>
-                                <p onClick={()=>increment(items.price)}>+</p>
+                                <p onClick={()=>decrement(items.price.toFixed(2))}>-</p>
+                                <p onClick={()=>increment(items.price.toFixed(2))}>+</p>
                             </div>
                         </div>
                         <div className="productDesc">
                             <p onClick={()=>deleteCartItem(items.id)} className="close">x</p>
                             <p className="title"> {items.title}</p>
-                            <p>{items.price==0?items.price:count}</p>
+                            <p>$ {items.price==0?items.price:count}</p>
                             <button onClick={()=>navigate('/')} className="btn">Go to Home</button>
                             <Link to={`checkout/${items.id}`}>
                                  <button className="btn">Checkout</button>

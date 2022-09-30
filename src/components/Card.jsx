@@ -6,11 +6,13 @@ const Card=(props)=> {
     const [products, setProducts] = useState([]);
 
     function addToCart(product) {
-
-        setProducts([...products, product]);
+        console.log('card',product)
+        // setProducts(prevProduct=>[...products,product]);
+        setProducts([...products,product]);
 
  }
  useEffect(()=>{
+
     localStorage.setItem('items',JSON.stringify(products))
  },[products])
 
@@ -26,7 +28,7 @@ const Card=(props)=> {
                     <p>{props.productTitle}</p>
                 </div>
                 <div className="price">
-                    <p><span>Rs </span>{props.productPrice}</p>
+                    <p><span>$ </span>{props.productPrice}</p>
                 </div>
             </Link>
             <div className="btn">

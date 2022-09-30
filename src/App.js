@@ -1,6 +1,5 @@
 
 import {Routes,Route} from "react-router-dom"
-import AuthContext from "./components/AuthContext";
 import CartPage from "./components/CartPage";
 import CheckoutPage from "./components/CheckoutPage";
 import Header from "./components/Header";
